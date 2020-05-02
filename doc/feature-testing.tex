@@ -28,7 +28,7 @@
 \subsection{Input Domain}
 The input domain of this features includes the title of the event, a date, a starting time, a ending time, a location, and a calendar. The input domain can be partitioned: e.g. one partition for title, one partition for date, etc.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centerline{\includegraphics[width=10cm]{screenshots/edit-event.png}}
 	\caption{Add Event Interface}
 \end{figure}
@@ -254,6 +254,7 @@ TC \# &
 \end{tabularx}
 \end{table}
 
+\newpage
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=12cm]{screenshots/tc06-actual-output.png}}
 	\caption{TC-06 actual output}
@@ -262,6 +263,7 @@ TC \# &
 	\centerline{\includegraphics[width=12cm]{screenshots/tc07-actual-output.png}}
 	\caption{TC-07 actual output}
 \end{figure}
+\newpage
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=12cm]{screenshots/tc08-actual-output.png}}
 	\caption{TC-08 actual output}
@@ -275,4 +277,123 @@ TC \# &
 	\caption{TC-10 actual output}
 \end{figure}
 
+\newpage
+\section{ePortfolios - ePortfolio Management}
+\subsection{Input Domain}
+The test cases will focus on creating and managing pages in an ePortfolio. This gives us a bigger input since creating a portfolio and a page in a portfolio take different inputs. The input domain for making a new ePortfolio online consists of the ePortfolio name and an option to make it public or not. When managing an ePortfolio page, the input domain includes the page name, rich text, \texttt{HTML}/embedded content, course submission (not testing this), image/file upload and the body for each of these inputs except image/file upload.
+
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=8cm]{screenshots/create-eportfolio.png}}
+	\caption{Creating an ePortfolio}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/create-eportfolio-page.png}}
+	\caption{Creating a page inside an ePortfolio}
+\end{figure}
+
+\newpage
+\subsubsection{ePortfolio Name}
+The input domain is a string input.
+
+\subsubsection{Page Name}
+The input domain is a string input.
+
+\subsubsection{Rich Text}
+The input domain is a string input.
+
+\subsubsection{\texttt{HTML}/Embedded}
+The input domain is \texttt{HTML} markup or a similar markup language.
+
+\subsubsection{Image/File}
+The input domain is either an image or a file from the user's files or computer.
+
+\newpage
+\subsection{Test Cases}
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{lXXXl}
+\toprule
+TC \# &
+  Input &
+  Expected Output &
+  Actual Output &
+  Tess Pass/Fail \\ \midrule
+11 &
+  \begin{itemize}
+    \item{ePortfolio-name: (empty)}
+    \item{page name: (n/a)}
+    \item{rich text: (n/a)}
+    \item{\texttt{HTML}/embedded: (n/a)}
+    \item{image/file: (n/a)}
+  \end{itemize} &
+   Canvas does not create ePortfolio. &
+   See figure 17. &
+   Pass \\ \midrule
+12 &
+  \begin{itemize}
+    \item{ePortfolio-name: test}
+    \item{page name: (empty)}
+    \item{rich text: Testing Case 2}
+    \item{\texttt{HTML}/embedded: (empty)}
+    \item{image/file: (empty)}
+  \end{itemize} &
+   Canvas notifies user a page title is required. &
+   Canvas creates the page with no warnings. See figure 18. &
+   Fail \\ \midrule
+13 &
+  \begin{itemize}
+    \item{ePortfolio-name: test}
+    \item{page name: Testing Case 3}
+    \item{rich text: (empty)}
+    \item{\texttt{HTML}/embedded: (empty)}
+    \item{image/file: (empty)}
+  \end{itemize} &
+   Canvas creates the page, displaying only the title. &
+   Leaving text blank reverts it to its previous text. See figure 19. &
+   Fail \\ \midrule
+14 &
+  \begin{itemize}
+    \item{ePortfolio-name: test}
+    \item{page name: Testing Case 4}
+    \item{rich text: (empty)}
+    \item{\texttt{HTML}/embedded: "Definitely not HTML code."}
+    \item{image/file: (empty)}
+  \end{itemize} &
+   Canvas displays nothing (invalid HTML code). &
+   Canvas treats input as rich text. See figure 20. &
+   Fail \\ \midrule
+15 &
+  \begin{itemize}
+    \item{ePortfolio-name: test}
+    \item{page name: Testing Case 5}
+    \item{rich text: (empty)}
+    \item{\texttt{HTML}/embedded: (empty)}
+    \item{image/file: A \texttt{.rar} file, approximately 80 MB.}
+  \end{itemize} &
+   Canvas informs the user that the file is too large for upload. &
+   Canvas uploads the file after a few minutes. Upload duration was shorter than TC-09. See figure 21. &
+   Fail \\ \bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=8cm]{screenshots/tc11-actual-output.png}}
+	\caption{TC-11 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc12-actual-output.png}}
+	\caption{TC-12 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc13-actual-output.png}}
+	\caption{TC-13 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc14-actual-output.png}}
+	\caption{TC-14 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc15-actual-output.png}}
+	\caption{TC-15 actual output}
+\end{figure}
 \end{document}
