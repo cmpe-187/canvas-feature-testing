@@ -14,6 +14,9 @@
 \usepackage{enumitem}
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 
+%fix table, figure floating issues
+\usepackage[section]{placeins}
+
 \title{Feature Testing}
 \author{
 	Cai, Zelin\\
@@ -26,7 +29,7 @@
 \maketitle
 \section{Calendar - Add Event as Student (Simplified Version)}
 \subsection{Input Domain}
-The input domain of this features includes the title of the event, a date, a starting time, a ending time, a location, and a calendar. The input domain can be partitioned: e.g. one partition for title, one partition for date, etc.
+The input domain of this feature includes the title of the event, a date, a starting time, a ending time, a location, and a calendar. The input domain can be partitioned: e.g. one partition for title, one partition for date, etc.
 
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=10cm]{screenshots/edit-event.png}}
@@ -52,9 +55,8 @@ The input domain of the input title is a string, which may be empty.
 \subsubsection{Calendar}
 The input domain of the calendar is a list of the user's calendars, of which one can be selected.
 
-\newpage
 \subsection{Test Cases}
-\begin{table}[h!]
+\begin{table}[!htb]
 \begin{tabularx}{\textwidth}{lXXXl}
 \toprule
 TC \# &
@@ -64,91 +66,109 @@ TC \# &
   Tess Pass/Fail \\ \midrule
 1 &
   \begin{itemize}
+    \item{UI: click plus (create new event) icon}
     \item{title: (empty)}
     \item{date: 2020-5-2}
     \item{starting time: 12:00am}
     \item{ending time: 12:00am}
     \item{location: (empty)}
     \item{calendar: Patrick Silvestre}
-    \item{UI: press submit button}
+    \item{UI: click submit button}
   \end{itemize} &
   Patrick Silvestre's calendar displays Untitled event on 2020-5-2. Event has no starting nor ending time (all-day event) &
   See figure 2. &
   Pass \\ \midrule
 2 &
   \begin{itemize}
+    \item{UI: click plus (create new event) icon}    
     \item{title: Test}
     \item{date: 2020-5-2}
     \item{starting time: 12:00am}
     \item{ending time: 12:00am}
     \item{location: Test}
     \item{calendar: Patrick Silvestre}
-    \item{UI: press submit button}
+    \item{UI: click submit button}
   \end{itemize} &
   Patrick Silvestre's calendar displays Test event on 2020-5-2 with Test location. Event has no starting nor ending time (all-day event). &
   See figure 3. &
-  Pass \\ \midrule
+  Pass \\ \bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[!htb]
+\begin{tabularx}{\textwidth}{lXXXl}
+\toprule
+TC \# &
+  Input &
+  Expected Output &
+  Actual Output &
+  Tess Pass/Fail \\ \midrule
 3 &
   \begin{itemize}
+    \item{UI: click plus (create new event) icon}
     \item{title: (empty)}
     \item{date: 2020-5-2}
     \item{starting time: 12:00pm}
     \item{ending time: 1:00pm}
     \item{location: (empty)}
     \item{calendar: Patrick Silvestre}
-    \item{UI: press submit button}
+    \item{UI: click submit button}
   \end{itemize} &
   Patrick Silvestre's calendar displays Test event on 2020-5-2 with test location. Event has starting time 12:00pm and ending time 1:00pm). &
   See figure 4. &
   Pass \\ \midrule
 4 &
   \begin{itemize}
+    \item{UI: click plus (create new event) icon}
     \item{title: Test}
     \item{date: 2020-4-25}
     \item{starting time: 12:00am}
     \item{ending time: 12:00am}
     \item{location: Test}
     \item{calendar: Patrick Silvestre}
-    \item{UI: press submit button}
+    \item{UI: click submit button}
   \end{itemize} &
   Patrick Silvestre's calendar displays Test event on 2020-4-25 with test location. Event has no starting nor ending time (all-day event). &
   See figure 5. &
   Pass \\ \midrule
 5 &
   \begin{itemize}
+    \item{UI: click plus (create new event) icon}
     \item{title: Test}
     \item{date: 2020-4-25}
     \item{starting time: 12:00pm}
     \item{ending time: 11:00am}
     \item{location: Test}
     \item{calendar: Patrick Silvestre}
-    \item{UI: press submit button}
+    \item{UI: click submit button}
   \end{itemize} &
   Add Event interface warns user that event ends before it starts and prevents user from submitting event. &
   System automatically adjusts either starting or ending time to prevent invalid times with no warning, implicitly allowing user to submit event. See figure 6. &
   Fail \\ \bottomrule
 \end{tabularx}
 \end{table}
+\FloatBarrier
 
-\newpage
-\begin{figure}[h!]
-	\centerline{\includegraphics[width=8cm]{screenshots/tc01-actual-output.png}}
+\begin{figure}[!htb]
+	\centerline{\includegraphics[]{screenshots/tc01-actual-output.png}}
 	\caption{TC-01 actual output}
 \end{figure}
-\begin{figure}[h!]
-	\centerline{\includegraphics[width=8cm]{screenshots/tc02-actual-output.png}}
+\begin{figure}[!htb]
+	\centerline{\includegraphics[]{screenshots/tc02-actual-output.png}}
 	\caption{TC-02 actual output}
 \end{figure}
-\begin{figure}[h!]
-	\centerline{\includegraphics[width=8cm]{screenshots/tc03-actual-output.png}}
+\pagebreak
+\begin{figure}[!htb]
+	\centerline{\includegraphics[]{screenshots/tc03-actual-output.png}}
 	\caption{TC-03 actual output}
 \end{figure}
-\begin{figure}[h!]
-	\centerline{\includegraphics[width=8cm]{screenshots/tc04-actual-output.png}}
+\begin{figure}[!htb]
+	\centerline{\includegraphics[]{screenshots/tc04-actual-output.png}}
 	\caption{TC-04 actual output}
 \end{figure}
-\begin{figure}[h!]
-	\centerline{\includegraphics[width=8cm]{screenshots/tc04-actual-output.png}}
+\pagebreak
+\begin{figure}[!htb]
+	\centerline{\includegraphics[]{screenshots/tc04-actual-output.png}}
 	\caption{TC-04 actual output}
 \end{figure}
 
@@ -158,6 +178,7 @@ TC \# &
 The input domain for the composing a message includes the Course section, the message recipients (only available after selecting the Course section), the subject of the message, the body of the message, any attachments the user wants to add to the message, and the option to send a different message to each recipient (This option will not be covered in the test cases).
 Most of the input domain can be partitioned (One for the subject, one for the attachments, etc.) except for selecting the message recipient because the user must select a course before they can select their recipients.
 
+
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=12cm]{screenshots/compose-message-before-selecting-course.png}}
 	\caption{Before selecting a course}
@@ -166,9 +187,10 @@ Most of the input domain can be partitioned (One for the subject, one for the at
 	\centerline{\includegraphics[width=12cm]{screenshots/compose-message-after-selecting-course.png}}
 	\caption{After selecting a course}
 \end{figure}
+\pagebreak
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=8cm]{screenshots/compose-message-attachment.png}}
-	\caption{Attachment to be used in all applicable tests}
+	\caption{Attachment to be used in applicable "Inbox" tests}
 \end{figure}
 
 \subsubsection{Course}
@@ -263,7 +285,7 @@ TC \# &
 	\centerline{\includegraphics[width=12cm]{screenshots/tc07-actual-output.png}}
 	\caption{TC-07 actual output}
 \end{figure}
-\newpage
+\pagebreak
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=12cm]{screenshots/tc08-actual-output.png}}
 	\caption{TC-08 actual output}
@@ -307,7 +329,6 @@ The input domain is \texttt{HTML} markup or a similar markup language.
 \subsubsection{Image/File}
 The input domain is either an image or a file from the user's files or computer.
 
-\newpage
 \subsection{Test Cases}
 \begin{table}[h!]
 \begin{tabularx}{\textwidth}{lXXXl}
@@ -349,7 +370,20 @@ TC \# &
   \end{itemize} &
    Canvas creates the page, displaying only the title. &
    Leaving text blank reverts it to its previous text. See figure 19. &
-   Fail \\ \midrule
+   Fail \\ \bottomrule
+\end{tabularx}
+\end{table}
+
+
+
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{lXXXl}
+\toprule
+TC \# &
+  Input &
+  Expected Output &
+  Actual Output &
+  Tess Pass/Fail \\ \midrule
 14 &
   \begin{itemize}
     \item{ePortfolio-name: test}
@@ -384,6 +418,7 @@ TC \# &
 	\centerline{\includegraphics[width=\textwidth]{screenshots/tc12-actual-output.png}}
 	\caption{TC-12 actual output}
 \end{figure}
+\pagebreak
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=\textwidth]{screenshots/tc13-actual-output.png}}
 	\caption{TC-13 actual output}
@@ -395,5 +430,112 @@ TC \# &
 \begin{figure}[h!]
 	\centerline{\includegraphics[width=\textwidth]{screenshots/tc15-actual-output.png}}
 	\caption{TC-15 actual output}
+\end{figure}
+
+\newpage
+\section{Files - File Management}
+\subsection{Input Domain}
+The "Files" feature on Canvas encompasses several different subfeatures. The subfeatures we will focus on are file upload, folder creation, file renaming, file deletion, and folder deletion.
+
+\subsubsection{File Upload}
+For file upload, the input domain is a file of any type. 
+
+\subsubsection{Folder Creation}
+For folder creation, the input domain is a string representing the folder name.
+
+\subsubsection{File Renaming}
+For file renaming, the input domain includes a file specified via the UI, a string representing the new filename, and a UI input for confirming or discarding the change.
+
+\subsubsection{File Deletion}
+For file deletion, the input domain includes a file specified via the UI, and a UI input for confirming deletion.
+
+\subsubsection{Folder Deletion}
+For file deletion, the input domain includes a folder specified via the UI, and a UI input for confirming deletion.
+
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=8cm]{screenshots/file-test-file.png}}
+	\caption{File to be used in applicable "Files" tests.}
+\end{figure}
+
+\newpage
+\subsection{Test Cases}
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{lXXXl}
+\toprule
+TC \# &
+  Input &
+  Expected Output &
+  Actual Output &
+  Tess Pass/Fail \\ \midrule
+16 &
+  \begin{itemize}
+    \item{UI: click "Upload" button}
+    \item{file: \texttt{test.txt}}
+  \end{itemize} &
+   Canvas displays the uploaded file. &
+   See figure 23. &
+   Pass \\ \midrule
+17 &
+  \begin{itemize}
+    \item{folder name: test}
+  \end{itemize} &
+   Canvas displays the created folder. &
+   See figure 24. &
+   Pass \\ \midrule
+18 &
+  \begin{itemize}
+    \item{specified file: \texttt{test.txt}}
+    \item{UI: click hamburger (option) menu for specified file}
+    \item{UI: click rename option}
+    \item{new filename: \texttt{abcd.txt}}
+    \item{UI: click checkmark (confirm change)}
+  \end{itemize} &
+   Canvas displays the renamed file. &
+   See figure 25. &
+   Pass \\ \midrule
+19 &
+  \begin{itemize}
+    \item{specified file: \texttt{abcd.txt}}
+    \item{UI: click hamburger (option) menu for specified file}
+    \item{UI: click delete option}
+    \item{UI: click "Ok" button}
+  \end{itemize} &
+   Canvas accurately reflects deletion of file. &
+   See figure 26. &
+   Pass \\ \midrule
+20 &
+  \begin{itemize}
+    \item{specified folder: \texttt{test}}
+    \item{UI: click hamburger (option) menu for specified folder}
+    \item{UI: click delete option}
+    \item{UI: click "Ok" button}
+  \end{itemize} &
+   Canvas accurately reflects deletion of folder. &
+   See figure 27. &
+   Pass \\ \bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc16-actual-output.png}}
+	\caption{TC-16 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc17-actual-output.png}}
+	\caption{TC-17 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc18-actual-output.png}}
+	\caption{TC-18 actual output}
+\end{figure}
+\pagebreak
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc19-actual-output.png}}
+	\caption{TC-19 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=\textwidth]{screenshots/tc20-actual-output.png}}
+	\caption{TC-20 actual output}
 \end{figure}
 \end{document}
