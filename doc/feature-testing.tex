@@ -6,8 +6,13 @@
 
 \usepackage[margin=0.5in]{geometry}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \usepackage{booktabs}
 \pagenumbering{gobble}
+
+%compact lists
+\usepackage{enumitem}
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 
 \title{Feature Testing}
 \author{
@@ -50,39 +55,224 @@ The input domain of the calendar is a list of the user's calendars, of which one
 \newpage
 \subsection{Test Cases}
 \begin{table}[h!]
-\centering
-\begin{tabular}{@{}clllc@{}}
+\begin{tabularx}{\textwidth}{lXXXl}
 \toprule
-TC \# & Input                                                                                                                                                                                               & Expected Output                                                                                                                                                                        & Actual Output                                                                                                                                                                                                            & Tess Pass/Fail \\ \midrule
-1     & \begin{tabular}[c]{@{}l@{}}title: (empty)\\ date: 2020-5-2\\ starting time: 12:00am\\ ending time: 12:00am\\ location: (empty)\\ calendar: Patrick Silvestre\\ UI: press submit button\end{tabular} & \begin{tabular}[c]{@{}l@{}}Patrick Silvestre's calendar displays\\ Untitled event on 2020-5-2\\ Event has no starting nor\\ ending time (all-day event)\end{tabular}                   & See figure 2.                                                                                                                                                                                                            & Pass           \\ \midrule
-2     & \begin{tabular}[c]{@{}l@{}}title: Test\\ date: 2020-5-2\\ starting time: 12:00am\\ ending time: 12:00am\\ location: Test\\ calendar: Patrick Silvestre\\ UI: press submit button\end{tabular}       & \begin{tabular}[c]{@{}l@{}}Patrick Silvestre's calendar displays\\ Test event on 2020-5-2 with Test\\ location\\ Event has no starting nor\\ ending time (all-day event)\end{tabular}  & See figure 3.                                                                                                                                                                                                            & Pass           \\ \midrule
-3     & \begin{tabular}[c]{@{}l@{}}title: Test\\ date: 2020-5-2\\ starting time: 12:00pm\\ ending time: 1:00pm\\ location: Test\\ calendar: Patrick Silvestre\\ UI: press submit button\end{tabular}        & \begin{tabular}[c]{@{}l@{}}Patrick Silvestre's calendar displays\\ Test event on 2020-5-2 with Test\\ location\\ Event has starting time 12:00pm\\ and ending time 1:00pm\end{tabular} & See figure 4.                                                                                                                                                                                                            & Pass           \\ \midrule
-4     & \begin{tabular}[c]{@{}l@{}}title: Test\\ date: 2020-5-2\\ starting time: 12:00am\\ ending time: 12:00am\\ location: Test\\ calendar: Patrick Silvestre\\ UI: press submit button\end{tabular}       & \begin{tabular}[c]{@{}l@{}}Patrick Silvestre's calendar displays\\ Test event on 2020-4-25 with Test\\ location\\ Event has no starting nor\\ ending time (all-day event)\end{tabular} & See figure 5.                                                                                                                                                                                                            & Pass           \\ \midrule
-5     & \begin{tabular}[c]{@{}l@{}}title: Test\\ date: 2020-5-2\\ starting time: 12:00pm\\ ending time: 11:00am\\ location: Test\\ calendar: Patrick Silvestre\\ UI: press submit button\end{tabular}       & \begin{tabular}[c]{@{}l@{}}Add Event interface should warn\\ user that event ends before it starts\\ and prevent user from submitting\\ event.\end{tabular}                            & \begin{tabular}[c]{@{}l@{}}System automatically\\ adjusts either starting\\ or ending time to\\ prevent invalid\\ times with no\\ warning, implicitly\\ allowing user to\\ submit event.\\ \\ See figure 6.\end{tabular} & Fail           \\ \bottomrule
-\end{tabular}
+TC \# &
+  Input &
+  Expected Output &
+  Actual Output &
+  Tess Pass/Fail \\ \midrule
+1 &
+  \begin{itemize}
+    \item{title: (empty)}
+    \item{date: 2020-5-2}
+    \item{starting time: 12:00am}
+    \item{ending time: 12:00am}
+    \item{location: (empty)}
+    \item{calendar: Patrick Silvestre}
+    \item{UI: press submit button}
+  \end{itemize} &
+  Patrick Silvestre's calendar displays Untitled event on 2020-5-2. Event has no starting nor ending time (all-day event) &
+  See figure 2. &
+  Pass \\ \midrule
+2 &
+  \begin{itemize}
+    \item{title: Test}
+    \item{date: 2020-5-2}
+    \item{starting time: 12:00am}
+    \item{ending time: 12:00am}
+    \item{location: Test}
+    \item{calendar: Patrick Silvestre}
+    \item{UI: press submit button}
+  \end{itemize} &
+  Patrick Silvestre's calendar displays Test event on 2020-5-2 with Test location. Event has no starting nor ending time (all-day event). &
+  See figure 3. &
+  Pass \\ \midrule
+3 &
+  \begin{itemize}
+    \item{title: (empty)}
+    \item{date: 2020-5-2}
+    \item{starting time: 12:00pm}
+    \item{ending time: 1:00pm}
+    \item{location: (empty)}
+    \item{calendar: Patrick Silvestre}
+    \item{UI: press submit button}
+  \end{itemize} &
+  Patrick Silvestre's calendar displays Test event on 2020-5-2 with test location. Event has starting time 12:00pm and ending time 1:00pm). &
+  See figure 4. &
+  Pass \\ \midrule
+4 &
+  \begin{itemize}
+    \item{title: Test}
+    \item{date: 2020-4-25}
+    \item{starting time: 12:00am}
+    \item{ending time: 12:00am}
+    \item{location: Test}
+    \item{calendar: Patrick Silvestre}
+    \item{UI: press submit button}
+  \end{itemize} &
+  Patrick Silvestre's calendar displays Test event on 2020-4-25 with test location. Event has no starting nor ending time (all-day event). &
+  See figure 5. &
+  Pass \\ \midrule
+5 &
+  \begin{itemize}
+    \item{title: Test}
+    \item{date: 2020-4-25}
+    \item{starting time: 12:00pm}
+    \item{ending time: 11:00am}
+    \item{location: Test}
+    \item{calendar: Patrick Silvestre}
+    \item{UI: press submit button}
+  \end{itemize} &
+  Add Event interface warns user that event ends before it starts and prevents user from submitting event. &
+  System automatically adjusts either starting or ending time to prevent invalid times with no warning, implicitly allowing user to submit event. See figure 6. &
+  Fail \\ \bottomrule
+\end{tabularx}
 \end{table}
 
 \newpage
-\subsubsection{Actual Output Screenshots}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centerline{\includegraphics[width=8cm]{screenshots/tc01-actual-output.png}}
 	\caption{TC-01 actual output}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centerline{\includegraphics[width=8cm]{screenshots/tc02-actual-output.png}}
 	\caption{TC-02 actual output}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centerline{\includegraphics[width=8cm]{screenshots/tc03-actual-output.png}}
 	\caption{TC-03 actual output}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centerline{\includegraphics[width=8cm]{screenshots/tc04-actual-output.png}}
 	\caption{TC-04 actual output}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centerline{\includegraphics[width=8cm]{screenshots/tc04-actual-output.png}}
 	\caption{TC-04 actual output}
+\end{figure}
+
+\newpage
+\section{Inbox - Composing a Message}
+\subsection{Input Domain}
+The input domain for the composing a message includes the Course section, the message recipients (only available after selecting the Course section), the subject of the message, the body of the message, any attachments the user wants to add to the message, and the option to send a different message to each recipient (This option will not be covered in the test cases).
+Most of the input domain can be partitioned (One for the subject, one for the attachments, etc.) except for selecting the message recipient because the user must select a course before they can select their recipients.
+
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/compose-message-before-selecting-course.png}}
+	\caption{Before selecting a course}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/compose-message-after-selecting-course.png}}
+	\caption{After selecting a course}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=8cm]{screenshots/compose-message-attachment.png}}
+	\caption{Attachment to be used in all applicable tests}
+\end{figure}
+
+\subsubsection{Course}
+The input domain is a selection from a list of courses that the user is currently enrolled in.
+
+\subsubsection{To}
+The input domain is a selection from a list of users that are in the selected course.
+
+\subsubsection{Subject}
+The input domain is a string input.
+
+\subsubsection{Message Body}
+The input domain is a string input.
+
+\subsubsection{Attachments}
+The input domain is a file either from the user’s files on Canvas or on their computer.
+
+\newpage
+\subsection{Test Cases}
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{lXXXl}
+\toprule
+TC \# &
+  Input &
+  Expected Output &
+  Actual Output &
+  Tess Pass/Fail \\ \midrule
+6 &
+  \begin{itemize}
+    \item{course: CMPE-187}
+    \item{to: (empty)}
+    \item{subject: Test1}
+    \item{message: Hello there}
+    \item{attachments: (empty)}
+  \end{itemize} &
+   Canvas informs user that recipient is invalid. &
+   See figure 10. &
+   Pass \\ \midrule
+7 &
+  \begin{itemize}
+    \item{course: CMPE-187}
+    \item{to: Zelin Cai}
+    \item{subject: Test2}
+    \item{message: (empty)}
+    \item{attachments: (empty)}
+  \end{itemize} &
+   Canvas sends the message normally &
+   See figure 11. &
+   Fail \\ \midrule
+8 &
+  \begin{itemize}
+    \item{course: CMPE-187}
+    \item{to: Zelin Cai}
+    \item{subject: (empty)}
+    \item{message: Test Case 3}
+    \item{attachments: (empty)}
+  \end{itemize} &
+   Canvas sends the message normally &
+   Canvas outputs message title "(No Title)". See figure 12. &
+   Pass \\ \midrule
+9 &
+  \begin{itemize}
+    \item{course: CMPE-187}
+    \item{to: Zelin Cai}
+    \item{subject: Test4}
+    \item{message: Testing Case 4}
+    \item{attachments: A \texttt{.rar} file, approximately 80MB}
+  \end{itemize} &
+   Canvas informs the user that the file is too large for attachment. &
+   Canvas sends message after about 10 minutes. See figure 13. &
+   Fail \\ \midrule
+10 &
+  \begin{itemize}
+    \item{course: (empty)}
+    \item{to: (empty)}
+    \item{subject: Test5}
+    \item{message: Testing Case 5}
+    \item{attachments: (empty)}
+  \end{itemize} &
+   Canvas informs user that the course selection is invalid. &
+   Canvas output is identical to TC-06. See figure 14. &
+   Fail \\ \bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/tc06-actual-output.png}}
+	\caption{TC-06 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/tc07-actual-output.png}}
+	\caption{TC-07 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/tc08-actual-output.png}}
+	\caption{TC-08 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/tc09-actual-output.png}}
+	\caption{TC-09 actual output}
+\end{figure}
+\begin{figure}[h!]
+	\centerline{\includegraphics[width=12cm]{screenshots/tc10-actual-output.png}}
+	\caption{TC-10 actual output}
 \end{figure}
 
 \end{document}
